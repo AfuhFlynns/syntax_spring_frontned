@@ -36,7 +36,7 @@ function App() {
     } else if (error?.message.includes("timed out")) {
       setAuthErrorMsg("Request timeout. Please check your internet connection");
     } else {
-      setAuthErrorMsg("An unkown error occured. Try again later");
+      setAuthErrorMsg("Request timeout. Please check your internet connection");
     }
     console.error(error);
     console.log(authErrorMsg);
@@ -61,6 +61,7 @@ function App() {
       controller.abort();
     };
   }, []);
+  console.log(user, error);
   return (
     <main
       className={`w-screen h-screen transition-all duration-300 ${

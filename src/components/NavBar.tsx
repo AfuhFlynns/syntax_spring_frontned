@@ -9,7 +9,7 @@ const NavBar = () => {
   const { isMobileNavBar, setIsMobileNavBar } = globalAppStore();
   return (
     <nav
-      className={`sticky bg-transparent top-0 left-0 right-0 w-full flex flex-row items-center justify-between h-[70px] py-4 xl:px-[44px] md:px-[38px] lg:px-[44px] px-[8px] `}
+      className={`sticky bg-primary-bg bg-opacity-90 top-0 left-0 right-0 w-full flex flex-row items-center justify-between h-[70px] py-4 xl:px-[44px] md:px-[38px] lg:px-[44px] px-[8px] `}
     >
       <Link
         to="/"
@@ -64,16 +64,14 @@ const NavBar = () => {
                 <li className="list-none">{item.title}</li>
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="flex flex-row items-center justify-center w-full h-auto mt-20"
-              onClick={() => setIsMobileNavBar(false)}
-            >
-              <button className="button">
-                <LogInIcon />
-                <span>Login / SignUp</span>
-              </button>
-            </Link>
+            <div className="w-full h-[8rem] flex flex-row items-center justify-center">
+              <Link to="/login" onClick={() => setIsMobileNavBar(false)}>
+                <button className="button">
+                  <LogInIcon />
+                  <span>Login / SignUp</span>
+                </button>
+              </Link>
+            </div>
           </ul>
         </div>
       )}

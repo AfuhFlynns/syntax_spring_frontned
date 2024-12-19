@@ -45,7 +45,8 @@ export interface globalUserStoreTypes {
   error: Error | any;
   loading: boolean;
   user: UserData | null;
-  isCheckingAuth: boolean;
+  isAuthenticated: boolean;
+  setAuthState: (value: boolean) => void;
   setUser: (user: UserData) => void;
   clearUser: () => void;
   signUp: (password: string, email: string, username: string) => void;

@@ -7,7 +7,7 @@ import userGlobalStore from "../store/userStore";
 const useAuth = () => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(false);
   const [error, setError] = useState<Error | null | { message: string }>();
-  const { setUser } = userGlobalStore();
+  const { setUser, setAuthState } = userGlobalStore();
 
   const checkAuth = useCallback(async () => {
     setIsCheckingAuth(true);
@@ -16,6 +16,7 @@ const useAuth = () => {
         authEndPoint
       );
       if (response.data.user) setUser(response.data.user); // Update user in the global store
+      setAuthState(true);
       setError(null);
     } catch (error: any | (Error | { message: string })) {
       setError(error ? error : "An Unkown error occured");

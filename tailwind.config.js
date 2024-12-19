@@ -13,6 +13,7 @@ export default {
             "blue-light": "#007BFF",
             "blue-dark": "#0056D6",
           },
+          gradient: "var(--primary-gradient)",
         },
         secondary: {
           bg: "#2D3748",

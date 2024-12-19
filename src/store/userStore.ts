@@ -11,7 +11,10 @@ const userGlobalStore = create<globalUserStoreTypes>((set) => ({
   error: new Error(""),
   loading: false,
   user: null,
-  isCheckingAuth: false,
+  isAuthenticated: false,
+  setAuthState: (value: boolean) => {
+    set({ isAuthenticated: value });
+  },
   setUser: (user: UserData | null) => set({ user }),
   clearUser: () => set({ user: null }),
   signUp: (password: string, email: string, username: string) => {},

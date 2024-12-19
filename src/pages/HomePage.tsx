@@ -1,4 +1,10 @@
-import { HeroSection, NavBar } from "../components";
+import {
+  CTASection,
+  FeaturesSection,
+  Footer,
+  HeroSection,
+  NavBar,
+} from "../components";
 
 // import userGlobalStore from "../store/userStore";
 
@@ -8,6 +14,9 @@ const HomePage = () => {
       {/* Navbar set up */}
       <NavBar />
       <HeroSection />
+      <FeaturesSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 };
