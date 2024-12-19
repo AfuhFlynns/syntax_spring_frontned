@@ -8,3 +8,34 @@
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
 }
+
+:root{
+  --primary-gradient: linear-gradient(to left, #007BFF, #0056D6);
+  --button-gradient: linear-gradient(90deg, #00JBFF, #0056D6);
+}
+
+.loader{
+  animation: animate-loader 1s infinite linear;
+}
+
+.button{
+  @apply flex flex-row items-center gap-2 px-6 py-2 capitalize rounded-large text-regular text-primary-white bg-primary-button-blue-light hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400
+}
+
+@keyframes animate-loader {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar{
+  @apply appearance-none bg-transparent w-[0.6rem] rounded-full absolute border-[1px] border-primary-border border-solid;
+}
+
+::-webkit-scrollbar-thumb{
+  @apply h-auto rounded-full appearance-none bg-primary-border;
+  width: 0.3rem;
+}

@@ -1,87 +1,101 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-// axios.create({}).defaults.baseURL = "http://localhost:8000";
-axios.defaults.withCredentials = true;
-
-const url = "http://localhost:8000/auth/users/check-auth";
-// const url = "http://localhost:8000/auth/users/sign-in";
-
-// Define an interface for the data structure
-interface UserData {
-  id: string;
-  email: string;
-  username: string;
-  // Add other properties as needed
-}
-interface LoginResponse {
-  user: UserData;
-  token: string;
-  message: string;
-}
+import { ToastContainer } from "react-toastify";
+import { Route, Routes } from "react-router-dom";
+// Custom imports
+import userGlobalStore from "./store/userStore";
+import LoadingOverlay from "./components/LoadingOverlay";
+import { useAuth } from "./Hooks";
+import {
+  AboutUs,
+  ChallengesPage,
+  Dashboard,
+  ErrorPage,
+  HomePage,
+  Leaderboard,
+} from "./pages";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  // In the component:
-  const [data, setData] = useState<LoginResponse | null>(null); // Specify the type here
-  const [error, setError] = useState<string | null>(null);
+  const [authErrorMsg, setAuthErrorMsg] = useState("");
+  const { isCheckingAuth, error, checkAuth } = useAuth();
+  const { user } = userGlobalStore();
 
-  const fetchUserData = async (url: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      // In fetchUserData:
-      const response = await axios.get<LoginResponse>(url);
-      setData(response.data);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error:", error.response?.data || error.message);
-        setError(`Error: ${error.response?.data?.message || error.message}`);
-      } else {
-        console.error("Unexpected error:", error);
-        setError("An unexpected error occurred.");
-      }
-    } finally {
-      setIsLoading(false);
+  // const notify = () => {
+  //   toast.success("Hello, world", {
+  //     autoClose: 5000, // Closes after 5 seconds
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //   });
+  // };
+
+  const setAuthCheckErrorMsgText = () => {
+    // Proper error handling for users
+    if (error?.message.includes("500")) {
+      setAuthErrorMsg("An unkown error occured. Try again later");
+    } else if (error?.message.includes("timed out")) {
+      setAuthErrorMsg("Request timeout. Please check your internet connection");
+    } else {
+      setAuthErrorMsg("An unkown error occured. Try again later");
     }
+    console.error(error);
+    console.log(authErrorMsg);
+  };
+
+  const handleCheckAuth = async () => {
+    // For easy reusability
+    await checkAuth();
+    setAuthCheckErrorMsgText();
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      axios.interceptors.request.use((request) => {
-        console.log("Starting Request", request);
-        return request;
-      });
-
-      axios.interceptors.response.use((response) => {
-        console.log("Response:", response);
-        return response;
-      });
-      try {
-        await fetchUserData(url);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setError("An unexpected error occurred.");
-      }
+    let isMounted = true; // Component mount state
+    const controller = new AbortController(); // component controller state
+    // Get user data once the app laods if user exists
+    if (isMounted === true) {
+      handleCheckAuth();
+    }
+    //Clear use effect
+    return () => {
+      isMounted = false;
+      controller.abort();
     };
-
-    void fetchData();
   }, []);
-
   return (
-    <div>
-      <h1>Syntax Spring App</h1>
-      {isLoading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {!isLoading && !error && (
-        <div>
-          <p>Data loaded successfully!</p>
-          <pre>{data?.message}</pre>
-          <pre>{data?.user.email}</pre>
-          <pre>{data?.user.username}</pre>
+    <main
+      className={`w-screen h-screen transition-all duration-300 ${
+        isCheckingAuth ? "overflow-hidden" : "overflow-x-hidden"
+      } bg-primary-bg`}
+    >
+      {/* Toast container set up */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        pauseOnHover={true}
+        theme="dark"
+      />
+      {!isCheckingAuth && (
+        <div className={`w-full h-full`}>
+          {/* Routes set up */}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/challenges" element={<ChallengesPage />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path={`user/${user?.username}`} element={<Dashboard />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
         </div>
       )}
-    </div>
+      {/* Loading overlay */}
+      {isCheckingAuth && (
+        <div className="absolute inset-0 flex items-center justify-center w-screen h-screen overflow-hidden bg-secondary-bg">
+          <LoadingOverlay text="Please wait..." />
+        </div>
+      )}
+    </main>
   );
 }
 

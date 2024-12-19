@@ -7,12 +7,14 @@
     "npm:@fontsource/roboto@^5.1.0": "5.1.0",
     "npm:@mui/icons-material@^6.1.1": "6.1.10_@mui+material@6.1.10__@emotion+react@11.13.5___react@18.3.1__@emotion+styled@11.13.5___@emotion+react@11.13.5____react@18.3.1___react@18.3.1__@types+react@18.3.14__react@18.3.1__react-dom@18.3.1___react@18.3.1_@types+react@18.3.14_react@18.3.1_@emotion+react@11.13.5__react@18.3.1_@emotion+styled@11.13.5__@emotion+react@11.13.5___react@18.3.1__react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@mui/material@^6.1.1": "6.1.10_@emotion+react@11.13.5__react@18.3.1_@emotion+styled@11.13.5__@emotion+react@11.13.5___react@18.3.1__react@18.3.1_@types+react@18.3.14_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+    "npm:@sentry/react@^8.47.0": "8.47.0_react@18.3.1",
     "npm:@types/react-dom@^18.3.1": "18.3.2",
     "npm:@types/react@^18.3.12": "18.3.14",
     "npm:@vitejs/plugin-react-swc@^3.5.0": "3.7.2_vite@5.4.11",
     "npm:autoprefixer@^10.4.20": "10.4.20_postcss@8.4.49",
     "npm:axios@^1.7.7": "1.7.9",
     "npm:date-fns@^4.1.0": "4.1.0",
+    "npm:dotenv@^16.4.7": "16.4.7",
     "npm:eslint-plugin-react-hooks@5": "5.1.0_eslint@9.16.0",
     "npm:eslint-plugin-react-refresh@~0.4.14": "0.4.16_eslint@9.16.0",
     "npm:eslint@^9.13.0": "9.16.0",
@@ -24,6 +26,7 @@
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
     "npm:react-feather@^2.0.10": "2.0.10_react@18.3.1",
     "npm:react-router-dom@^7.0.1": "7.0.2_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+    "npm:react-toastify@11": "11.0.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react@^18.3.1": "18.3.1",
     "npm:tailwindcss@^3.4.15": "3.4.16_postcss@8.4.49",
     "npm:typescript-eslint@^8.11.0": "8.17.0_eslint@9.16.0_@typescript-eslint+parser@8.17.0__eslint@9.16.0__typescript@5.6.3_typescript@5.6.3",
@@ -548,6 +551,54 @@
     "@rollup/rollup-win32-x64-msvc@4.28.1": {
       "integrity": "sha512-ZvK2jBafvttJjoIdKm/Q/Bh7IJ1Ose9IBOwpOXcOvW3ikGTQGmKDgxTC6oCAzW6PynbkKP8+um1du81XJHZ0JA=="
     },
+    "@sentry-internal/browser-utils@8.47.0": {
+      "integrity": "sha512-vOXzYzHTKkahTLDzWWIA4EiVCQ+Gk+7xGWUlNcR2ZiEPBqYZVb5MjsUozAcc7syrSUy6WicyFjcomZ3rlCVQhg==",
+      "dependencies": [
+        "@sentry/core"
+      ]
+    },
+    "@sentry-internal/feedback@8.47.0": {
+      "integrity": "sha512-IAiIemTQIalxAOYhUENs9bZ8pMNgJnX3uQSuY7v0gknEqClOGpGkG04X/cxCmtJUj1acZ9ShTGDxoh55a+ggAQ==",
+      "dependencies": [
+        "@sentry/core"
+      ]
+    },
+    "@sentry-internal/replay-canvas@8.47.0": {
+      "integrity": "sha512-M4W9UGouEeELbGbP3QsXLDVtGiQSZoWJlKwqMWyqdQgZuLoKw0S33+60t6teLVMhuQZR0UI9VJTF5coiXysnnA==",
+      "dependencies": [
+        "@sentry-internal/replay",
+        "@sentry/core"
+      ]
+    },
+    "@sentry-internal/replay@8.47.0": {
+      "integrity": "sha512-G/S40ZBORj0HSMLw/uVC6YDEPN/dqVk901vf4VYfml686DEhJrZesfAfp5SydJumQ0NKZQrdtvny+BWnlI5H1w==",
+      "dependencies": [
+        "@sentry-internal/browser-utils",
+        "@sentry/core"
+      ]
+    },
+    "@sentry/browser@8.47.0": {
+      "integrity": "sha512-K6BzHisykmbFy/wORtGyfsAlw7ShevLALzu3ReZZZ18dVubO1bjSNjkZQU9MJD5Jcb9oLwkq89n3N9XIBfvdRA==",
+      "dependencies": [
+        "@sentry-internal/browser-utils",
+        "@sentry-internal/feedback",
+        "@sentry-internal/replay",
+        "@sentry-internal/replay-canvas",
+        "@sentry/core"
+      ]
+    },
+    "@sentry/core@8.47.0": {
+      "integrity": "sha512-iSEJZMe3DOcqBFZQAqgA3NB2lCWBc4Gv5x/SCri/TVg96wAlss4VrUunSI2Mp0J4jJ5nJcJ2ChqHSBAU48k3FA=="
+    },
+    "@sentry/react@8.47.0_react@18.3.1": {
+      "integrity": "sha512-SRk2Up+qBTow4rQGiRXViC2i4M5w/tae5w8I/rmX+IxFoPyh8wXERcLAj/8xbbRm8aR+A4i5gNgfFtrYsyFJFA==",
+      "dependencies": [
+        "@sentry/browser",
+        "@sentry/core",
+        "hoist-non-react-statics",
+        "react"
+      ]
+    },
     "@swc/core-darwin-arm64@1.10.0": {
       "integrity": "sha512-wCeUpanqZyzvgqWRtXIyhcFK3CqukAlYyP+fJpY2gWc/+ekdrenNIfZMwY7tyTFDkXDYEKzvn3BN/zDYNJFowQ=="
     },
@@ -946,6 +997,9 @@
         "@babel/runtime",
         "csstype"
       ]
+    },
+    "dotenv@16.4.7": {
+      "integrity": "sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ=="
     },
     "eastasianwidth@0.2.0": {
       "integrity": "sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA=="
@@ -1612,6 +1666,14 @@
         "turbo-stream"
       ]
     },
+    "react-toastify@11.0.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-NLTt0hNNlVZPLnY+uzUvmE2H2jRHUpaPi7H3+84+3fMjZSpfngyL/r+2VcaepNItWuN0BCBiZdVluXixXYSFmw==",
+      "dependencies": [
+        "clsx",
+        "react",
+        "react-dom"
+      ]
+    },
     "react-transition-group@4.4.5_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
       "integrity": "sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==",
       "dependencies": [
@@ -1930,12 +1992,14 @@
         "npm:@fontsource/roboto@^5.1.0",
         "npm:@mui/icons-material@^6.1.1",
         "npm:@mui/material@^6.1.1",
+        "npm:@sentry/react@^8.47.0",
         "npm:@types/react-dom@^18.3.1",
         "npm:@types/react@^18.3.12",
         "npm:@vitejs/plugin-react-swc@^3.5.0",
         "npm:autoprefixer@^10.4.20",
         "npm:axios@^1.7.7",
         "npm:date-fns@^4.1.0",
+        "npm:dotenv@^16.4.7",
         "npm:eslint-plugin-react-hooks@5",
         "npm:eslint-plugin-react-refresh@~0.4.14",
         "npm:eslint@^9.13.0",
@@ -1947,6 +2011,7 @@
         "npm:react-dom@^18.3.1",
         "npm:react-feather@^2.0.10",
         "npm:react-router-dom@^7.0.1",
+        "npm:react-toastify@11",
         "npm:react@^18.3.1",
         "npm:tailwindcss@^3.4.15",
         "npm:typescript-eslint@^8.11.0",
