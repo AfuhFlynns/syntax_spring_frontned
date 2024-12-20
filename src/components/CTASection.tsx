@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 
-import SectionWrapper from "../wrapper/SectionWrapper";
-
 const CTASection = () => {
   return (
-    <section className="py-10 text-white bg-blue-600">
+    <section className="py-10 mb-14 text-white section-border bg-blue-600 md:-mt-[12rem] -mt-[9rem] w-[93%] rounded-lg">
       <div className="px-4 mx-auto text-center max-w-7xl">
-        <h2 className="mb-4 text-3xl font-bold">
+        <h2 className="mb-4 font-bold md:text-h1 text-h2">
           Ready to Transform Your Coding Journey?
         </h2>
         <p className="mb-6 text-lg">Sign up today and get started for free!</p>
@@ -21,4 +19,4 @@ const CTASection = () => {
   );
 };
 
-export default SectionWrapper(CTASection);
+export default CTASection;

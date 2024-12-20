@@ -2,40 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
 }
 
-:root{
-  --primary-gradient: linear-gradient(to left, #007BFF, #0056D6);
-  --button-gradient: linear-gradient(90deg, #00JBFF, #0056D6);
+:root {
+  --primary-gradient: linear-gradient(to left, #007bff, #0056d6);
+  --button-gradient: linear-gradient(90deg, #00JBFF, #0056d6);
 }
 
-.loader{
+.loader {
   animation: animate-loader 1s infinite linear;
 }
 
-.button{
-  @apply flex flex-row items-center gap-2 px-6 py-2 capitalize rounded-large text-regular text-primary-white bg-primary-button-blue-light hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400
+.button {
+  @apply flex flex-row items-center gap-2 px-6 py-2 capitalize rounded-large text-regular text-primary-white bg-primary-button-blue-light hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.section-border {
+  @apply border-primary-border border-solid border-[1px];
 }
 
 @keyframes animate-loader {
-  from{
+  from {
     transform: rotate(0deg);
   }
-  to{
+  to {
     transform: rotate(360deg);
   }
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   @apply appearance-none bg-transparent w-[0.6rem] rounded-full absolute border-[1px] border-primary-border border-solid;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   @apply h-auto rounded-full appearance-none bg-primary-border;
   width: 0.3rem;
 }
