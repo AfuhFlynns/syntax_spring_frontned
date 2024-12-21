@@ -28,7 +28,7 @@ function App() {
     if (!isCheckingAuth && !user) {
       checkAuth();
     }
-  }, [sendCheckAuth, isCheckingAuth, user, checkAuth]);
+  }, [sendCheckAuth]);
 
   useEffect(() => {
     if (error) {
