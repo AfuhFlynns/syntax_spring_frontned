@@ -24,11 +24,11 @@ function App() {
   const { user, sendCheckAuth, isAuthenticated } = userGlobalStore();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   if (!isCheckingAuth && !user) {
-  //     checkAuth();
-  //   }
-  // }, [sendCheckAuth]);
+  useEffect(() => {
+    if (!isCheckingAuth && !user) {
+      checkAuth();
+    }
+  }, [sendCheckAuth, checkAuth]);
 
   useEffect(() => {
     if (error) {
