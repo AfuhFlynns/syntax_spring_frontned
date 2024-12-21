@@ -32,8 +32,8 @@ const LogInPage: React.FC = () => {
 
   const handleSubmitForm = async () => {
     await logIn(form.password, form.value);
-    toast.success("Login successful");
     navigate("/dashboard");
+    toast.success("Login successful");
     setForm({
       value: "",
       password: "",
