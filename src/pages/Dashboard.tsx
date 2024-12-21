@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import appLogo from "../assets/logo/fav-icon.png";
 
 // Custom AppBar styling
-const CustomAppBar = styled(AppBar)(({ theme }) => ({
+const CustomAppBar = styled(AppBar)(() => ({
   background: "#1A202C",
   borderBottom: `1px solid #4A5568`,
 }));
