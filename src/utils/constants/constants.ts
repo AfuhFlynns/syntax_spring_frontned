@@ -16,7 +16,7 @@ const urlLinks = [
   },
 ];
 // Base url
-const baseUrl = "http://localhost:8000";
+const baseUrl = "https://syntax-spring-dev.railway.internal";
 // Challenges urls
 const getChallengesEndPoint = "/challenges/api/v1/all";
 // Auth urls
