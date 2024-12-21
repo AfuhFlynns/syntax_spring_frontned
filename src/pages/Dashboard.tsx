@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import { styled } from "@mui/material/styles";
 import {
   AppBar,
@@ -71,7 +72,7 @@ const Dashboard: React.FC = () => {
           {/* Coding Challenges */}
           <Box className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700">
             <Typography variant="h6" className="text-white font-semibold mb-2">
-              Coding Challenges
+                Coding Challenges
             </Typography>
             <Typography className="text-gray-400 mb-4">
               Solve interactive coding challenges to improve your skills.
@@ -81,7 +82,9 @@ const Dashboard: React.FC = () => {
               style={{ background: "var(--button-gradient)", color: "#fff" }}
               fullWidth
             >
-              Start Now
+               <Link to="/challenges">
+                Start Now
+              </Link>
             </Button>
           </Box>
 
@@ -98,7 +101,9 @@ const Dashboard: React.FC = () => {
               style={{ background: "var(--button-gradient)", color: "#fff" }}
               fullWidth
             >
+             <Link to="/challenges">
               Explore Labs
+              </Link>
             </Button>
           </Box>
 
@@ -115,7 +120,9 @@ const Dashboard: React.FC = () => {
               style={{ background: "var(--button-gradient)", color: "#fff" }}
               fullWidth
             >
+              <Link to="/challenges">
               Ask AI
+              </Link>
             </Button>
           </Box>
         </Box>
