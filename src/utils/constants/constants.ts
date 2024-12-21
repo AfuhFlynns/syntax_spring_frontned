@@ -16,7 +16,7 @@ const urlLinks = [
   },
 ];
 // Base url
-const baseUrl = "https://syntax-spring-dev.railway.internal";
+const baseUrl = "https://syntax-springdev-production.up.railway.app";
 // Challenges urls
 const getChallengesEndPoint = "/challenges/api/v1/all";
 // Auth urls
