@@ -77,15 +77,15 @@ const Dashboard: React.FC = () => {
             <Typography className="text-gray-400 mb-4">
               Solve interactive coding challenges to improve your skills.
             </Typography>
+               <Link to="/challenges">
             <Button
               variant="contained"
               style={{ background: "var(--button-gradient)", color: "#fff" }}
               fullWidth
             >
-               <Link to="/challenges">
                 Start Now
-              </Link>
             </Button>
+              </Link>
           </Box>
 
           {/* Labs */}
@@ -96,15 +96,15 @@ const Dashboard: React.FC = () => {
             <Typography className="text-gray-400 mb-4">
               Practice in a real-world coding environment.
             </Typography>
+             <Link to="/challenges">
             <Button
               variant="contained"
               style={{ background: "var(--button-gradient)", color: "#fff" }}
               fullWidth
             >
-             <Link to="/challenges">
               Explore Labs
-              </Link>
             </Button>
+              </Link>
           </Box>
 
           {/* AI Problem Solver */}
@@ -115,15 +115,15 @@ const Dashboard: React.FC = () => {
             <Typography className="text-gray-400 mb-4">
               Get help from AI to solve coding problems instantly.
             </Typography>
+              <Link to="/challenges">
             <Button
               variant="contained"
               style={{ background: "var(--button-gradient)", color: "#fff" }}
               fullWidth
             >
-              <Link to="/challenges">
               Ask AI
-              </Link>
             </Button>
+              </Link>
           </Box>
         </Box>
       </Box>
