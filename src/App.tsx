@@ -135,9 +135,7 @@ function App() {
         <Route
           path="/leaderboard"
           element={
-            <ProtectedRoute>
-              <Leaderboard />
-            </ProtectedRoute>
+            <Navigate to="/" replace />
           }
         />
         <Route
