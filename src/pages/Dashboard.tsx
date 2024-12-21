@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import "tailwindcss/tailwind.css";
 import userGlobalStore from "../store/userStore";
+import { Link } from "react-router-dom";
+import appLogo from "../assets/logo/fav-icon.png";
 
 // Custom AppBar styling
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
@@ -19,24 +21,23 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
 
 const Dashboard: React.FC = () => {
   // Zustand store
-  const { user, users } = userGlobalStore();
+  const { user } = userGlobalStore();
 
   return (
     <Box className="min-h-screen bg-gray-900 text-white">
       {/* Navbar */}
       <CustomAppBar position="static">
         <Toolbar className="flex justify-between">
-          <Typography
-            variant="h6"
-            className="font-bold text-lg text-gradient"
-            style={{
-              background: "var(--primary-gradient)",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            SyntaxSpring
-          </Typography>
+          <Link to="/" className="flex flex-row items-center w-auto h-full">
+            <img
+              src={appLogo}
+              alt="syntax spring logo"
+              className="object-contain w-[40px] h-[40px] aspect-1/1"
+            />
+            <h2 className="ml-2 font-bold text-primary-white text-[18px]">
+              Syntax Spring
+            </h2>
+          </Link>
           <Box className="flex items-center gap-4">
             <Avatar
               alt={user?.username}

@@ -28,6 +28,7 @@ const logOutEndPoint = "/auth/users/log-out";
 const forgotPasswordEndPoint = "/auth/users/forgot-password";
 const resetPasswordEndPoint = "/auth/users/reset-password";
 const deleteAccountEndPoint = "/auth/users/delete-account";
+const aiEndPoint = "/assist/api/v1/ai";
 
 export {
   urlLinks,
@@ -41,4 +42,5 @@ export {
   forgotPasswordEndPoint,
   resetPasswordEndPoint,
   deleteAccountEndPoint,
+  aiEndPoint,
 };

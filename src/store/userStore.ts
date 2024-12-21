@@ -3,11 +3,11 @@ import { challengesDataTypes, globalUserStoreTypes, UserData } from "../TYPES";
 import axios, { protectedAxios } from "../api/axios.config";
 import {
   signInEndPoint,
-  logOutEndPoint,
   verificationEndPoint,
   signUpEndPoint,
   forgotPasswordEndPoint,
   resetPasswordEndPoint,
+  aiEndPoint,
 } from "../utils/constants/constants";
 
 const userGlobalStore = create<globalUserStoreTypes>((set) => ({
@@ -168,6 +168,39 @@ const userGlobalStore = create<globalUserStoreTypes>((set) => ({
       });
 
       set({ loading: false });
+    }
+  },
+  askAiHelp: async (
+    title: string,
+    description: string,
+    initialCode: string,
+    solution: string
+  ) => {
+    set({ loading: true });
+    try {
+      const response = (await protectedAxios.post)<{
+        success: true;
+        message: "";
+      }>(aiEndPoint, {
+        title: title,
+        description: description,
+        initialCode: initialCode,
+        solution: solution,
+      });
+      set({ loading: false });
+      return (await response).data.message;
+    } catch (error:
+      | {
+          response: {
+            data: {
+              message: string;
+              success: boolean;
+            };
+          };
+        }
+      | any) {
+      set({ loading: true, error: error });
+      console.error("Error with AI help request:", error);
     }
   },
 }));

@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components";
 import userGlobalStore from "../store/userStore";
+import globalAppStore from "../store/appStore";
 
 const ChallengesPage = () => {
   const navigate = useNavigate();
   const { challenges } = userGlobalStore();
+  const { setChallengeTitle } = globalAppStore();
 
-  const handleCardClick = (challengeId: string) => {
+  const handleCardClick = (challengeId: string, challengeTitle: string) => {
     navigate(`/playground/${challengeId}`); // Navigate to playground with challenge ID
+    setChallengeTitle(challengeTitle); // Set new challenge id
   };
 
   return (
@@ -28,7 +31,9 @@ const ChallengesPage = () => {
               <div
                 key={index}
                 className="bg-secondary-bg shadow-md rounded-lg p-6 hover:shadow-lg cursor-pointer border border-blue-200"
-                onClick={() => handleCardClick(index.toString())} // Use index or a unique challenge ID
+                onClick={() =>
+                  handleCardClick(index.toString(), challenge.title)
+                } // Use index or a unique challenge ID
               >
                 <div className="mb-4">
                   <h2 className="text-xl font-semibold text-primary-white">

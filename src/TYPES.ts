@@ -85,9 +85,17 @@ export interface globalUserStoreTypes {
   forgotPassword: (email: string) => void;
   resetPassword: (token: string | undefined, password: string) => void;
   verifyUser: (code: string) => void;
+  askAiHelp: (
+    title: string,
+    description: string,
+    initialCode: string,
+    solution: string
+  ) => Promise<string | undefined>;
 }
 
 export interface globalAppStoreTypes {
   isMobileNavBar: boolean;
   setIsMobileNavBar: (value: boolean) => void;
+  setChallengeTitle: (value: string) => void;
+  challengeTitle: string;
 }
