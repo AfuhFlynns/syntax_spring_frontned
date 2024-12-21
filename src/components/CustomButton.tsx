@@ -4,16 +4,18 @@ import { Button } from "@mui/material";
 const CustomButton = ({
   text,
   className,
+  type,
 }: //   Icon,
 //   IconClassName,
 {
   text: string;
   className?: string;
+  type?: "button" | "submit" | "reset";
   //   Icon?: HTMLImageElement;
   //   IconClassName?: string;
 }) => {
   return (
-    <Button style={{ height: "auto", width: "auto" }}>
+    <Button type={type} style={{ height: "auto", width: "auto" }}>
       <div className={`button ${className}`}>
         {/*<Icon className={IconClassName} /> */} <span>{text}</span>
       </div>

@@ -6,6 +6,7 @@ import CustomButton from "./CustomButton";
 import Footer from "./Footer";
 import CTASection from "./CTASection";
 import FeaturesSection from "./FeaturesSection";
+import CustomInput from "./CustomInput";
 
 export {
   CustomLoader1,
@@ -16,4 +17,5 @@ export {
   Footer,
   CTASection,
   FeaturesSection,
+  CustomInput,
 };

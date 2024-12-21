@@ -13,7 +13,7 @@ const ErrorPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-transparent ">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-transparent md:px-0">
       {/* Animated text */}
       <motion.div
         className="text-center"
@@ -43,6 +43,7 @@ const ErrorPage: React.FC = () => {
         <video
           src={errorVideo}
           className="rounded-lg shadow-ShadowRoot-shadow hover:scale-[1.04] hover:opacity-100 opacity-80"
+          title="404 robot video"
           autoPlay
           loop
           muted

@@ -2,7 +2,7 @@ import { NavBar } from "../components";
 
 const AboutUs = () => {
   return (
-    <div>
+    <div className="text-center">
       <NavBar />
       <div className="py-10 text-white">
         <div className="px-4 mx-auto max-w-7xl">

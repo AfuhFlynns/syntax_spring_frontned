@@ -35,30 +35,6 @@ export interface UserData {
   }[];
   achievements: string[];
 }
-
-export interface responseDataTypes {
-  user: UserData | null;
-  message: string;
-}
-
-export interface globalUserStoreTypes {
-  error: Error | any;
-  loading: boolean;
-  user: UserData | null;
-  isAuthenticated: boolean;
-  setAuthState: (value: boolean) => void;
-  setUser: (user: UserData) => void;
-  clearUser: () => void;
-  signUp: (password: string, email: string, username: string) => void;
-  logIn: (password: string, value: string) => void;
-  verifyUser: (code: string) => void;
-}
-
-export interface globalAppStoreTypes {
-  isMobileNavBar: boolean;
-  setIsMobileNavBar: (value: boolean) => void;
-}
-
 export interface challengesDataTypes {
   title: string;
   type:
@@ -80,4 +56,38 @@ export interface challengesDataTypes {
   tags: {
     tag: string;
   }[];
+}
+
+export interface responseDataTypes {
+  user: UserData | null;
+  message: string;
+  users: UserData[] | null;
+  challenges: challengesDataTypes[] | null;
+}
+
+export interface globalUserStoreTypes {
+  error: string;
+  loading: boolean;
+  user: UserData | null;
+  users: UserData[] | null;
+  challenges: challengesDataTypes[] | null;
+  isAuthenticated: boolean;
+  sendCheckAuth: boolean;
+  setAuthState: (value: boolean) => void;
+  setUser: (
+    user: UserData | null,
+    users: UserData[] | null,
+    challenges: challengesDataTypes[] | null
+  ) => void;
+  clearUser: () => void;
+  signUp: (password: string, email: string, username: string) => void;
+  logIn: (password: string, value: string) => void;
+  forgotPassword: (email: string) => void;
+  resetPassword: (token: string | undefined, password: string) => void;
+  verifyUser: (code: string) => void;
+}
+
+export interface globalAppStoreTypes {
+  isMobileNavBar: boolean;
+  setIsMobileNavBar: (value: boolean) => void;
 }

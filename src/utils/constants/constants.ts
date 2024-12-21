@@ -26,7 +26,7 @@ const signUpEndPoint = "/auth/users/sign-up";
 const verificationEndPoint = "/auth/users/verify-account";
 const logOutEndPoint = "/auth/users/log-out";
 const forgotPasswordEndPoint = "/auth/users/forgot-password";
-const resetPasswordEndPoint = "/auth/users/reset-password/:token";
+const resetPasswordEndPoint = "/auth/users/reset-password";
 const deleteAccountEndPoint = "/auth/users/delete-account";
 
 export {

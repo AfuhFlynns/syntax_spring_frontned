@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 // Custom imports
 import userGlobalStore from "./store/userStore";
 import LoadingOverlay from "./components/LoadingOverlay";
@@ -10,92 +10,148 @@ import {
   ChallengesPage,
   Dashboard,
   ErrorPage,
+  ForgotPassword,
   HomePage,
   Leaderboard,
+  LogInPage,
+  ResetPassword,
+  SignUpPage,
+  VerificationPage,
 } from "./pages";
 
 function App() {
-  const [authErrorMsg, setAuthErrorMsg] = useState("");
   const { isCheckingAuth, error, checkAuth } = useAuth();
-  const { user } = userGlobalStore();
-
-  // const notify = () => {
-  //   toast.success("Hello, world", {
-  //     autoClose: 5000, // Closes after 5 seconds
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //   });
-  // };
-
-  const setAuthCheckErrorMsgText = () => {
-    // Proper error handling for users
-    if (error?.message.includes("500")) {
-      setAuthErrorMsg("An unkown error occured. Try again later");
-    } else if (error?.message.includes("timed out")) {
-      setAuthErrorMsg("Request timeout. Please check your internet connection");
-    } else {
-      setAuthErrorMsg("Request timeout. Please check your internet connection");
-    }
-    console.error(error);
-    console.log(authErrorMsg);
-  };
-
-  const handleCheckAuth = async () => {
-    // For easy reusability
-    await checkAuth();
-    setAuthCheckErrorMsgText();
-  };
+  const { user, sendCheckAuth, isAuthenticated, users, challenges } =
+    userGlobalStore();
+  const location = useLocation();
 
   useEffect(() => {
-    let isMounted = true; // Component mount state
-    const controller = new AbortController(); // component controller state
-    // Get user data once the app laods if user exists
-    if (isMounted === true) {
-      handleCheckAuth();
+    if (!isCheckingAuth && !user) {
+      checkAuth();
     }
-    //Clear use effect
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
-  }, []);
-  console.log(user, error);
+  }, [sendCheckAuth, isCheckingAuth, user, checkAuth]);
+
+  useEffect(() => {
+    if (error) {
+      console.error("Authentication error:", error);
+      // You can add a toast notification here if needed
+    }
+  }, [error]);
+
+  const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+    if (!isAuthenticated) {
+      return <Navigate to="/log-in" state={{ from: location }} replace />;
+    }
+    return <>{children}</>;
+  };
+
+  const PublicOnlyRoute = ({ children }: { children: ReactNode }) => {
+    if (isAuthenticated) {
+      return <Navigate to="/dashboard" replace />;
+    }
+    return <>{children}</>;
+  };
+
+  if (isCheckingAuth) {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center w-screen h-screen overflow-hidden bg-secondary-bg">
+        <LoadingOverlay text="Please wait..." />
+      </div>
+    );
+  }
+
+  console.log(user, users, challenges);
+
   return (
-    <main
-      className={`w-screen h-screen transition-all duration-300 ${
-        isCheckingAuth ? "overflow-hidden" : "overflow-x-hidden"
-      } bg-primary-bg`}
-    >
-      {/* Toast container set up */}
+    <main className="w-screen h-screen overflow-x-hidden bg-primary-bg">
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         hideProgressBar={true}
         pauseOnHover={true}
         theme="dark"
       />
-      {!isCheckingAuth && (
-        <div className={`w-full h-full`}>
-          {/* Routes set up */}
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/challenges" element={<ChallengesPage />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path={`user/${user?.username}`} element={<Dashboard />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </div>
-      )}
-      {/* Loading overlay */}
-      {isCheckingAuth && (
-        <div className="absolute inset-0 flex items-center justify-center w-screen h-screen overflow-hidden bg-secondary-bg">
-          <LoadingOverlay text="Please wait..." />
-        </div>
-      )}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/about-us" element={<AboutUs />} />
+
+        <Route
+          element={
+            <PublicOnlyRoute>
+              <LogInPage />
+            </PublicOnlyRoute>
+          }
+          path="/log-in"
+        />
+        <Route
+          element={
+            <PublicOnlyRoute>
+              <SignUpPage />
+            </PublicOnlyRoute>
+          }
+          path="/sign-up"
+        />
+        <Route
+          element={
+            <PublicOnlyRoute>
+              <ForgotPassword />
+            </PublicOnlyRoute>
+          }
+          path="/forgot-password"
+        />
+        <Route
+          element={
+            <PublicOnlyRoute>
+              <ResetPassword />
+            </PublicOnlyRoute>
+          }
+          path="/reset-password/:token"
+        />
+        <Route
+          element={
+            <PublicOnlyRoute>
+              <VerificationPage />
+            </PublicOnlyRoute>
+          }
+          path="/verify-account"
+        />
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <ChallengesPage />
+            </ProtectedRoute>
+          }
+          path="/challenges"
+        />
+        <Route
+          element={
+            <ProtectedRoute>
+              <Leaderboard />
+            </ProtectedRoute>
+          }
+          path="/leaderboard"
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Navigate to={`/dashboard/user/${user?.username}`} replace />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/user/:username"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </main>
   );
 }

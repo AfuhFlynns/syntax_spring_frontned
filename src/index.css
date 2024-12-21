@@ -26,6 +26,32 @@
   @apply border-primary-border border-solid border-[1px];
 }
 
+.auth-screen {
+  @apply flex flex-col items-center justify-start w-full h-full min-h-full gap-4 py-6 mb-5;
+}
+.form {
+  @apply rounded-md bg-secondary-bg h-auto w-[94%] lg:w-[40%] xl:w-[40%] md:w-[50%] border-[1px] border-solid border-primary-border flex flex-col items-start justify-between gap-8 p-[2.5rem] md:p-[3rem] text-primary-text;
+}
+.input-row {
+  @apply w-full h-[5rem] gap-3 flex flex-col items-start justify-between;
+}
+
+.input-row-label {
+  @apply text-lg text-primary-text;
+}
+
+.input {
+  @apply bg-transparent border-solid border-[1px] border-secondary-button-outline rounded-small h-[90%] w-full px-3;
+}
+
+.submit-btn {
+  @apply relative flex flex-row items-center w-full h-full capitalize rounded-xl text-regular hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-primary-gradient shadow-ShadowRoot-shadow;
+}
+
+.input-footer {
+  @apply flex flex-row items-center justify-center h-[3rem] w-full gap-1 text-regular;
+}
+
 @keyframes animate-loader {
   from {
     transform: rotate(0deg);
@@ -36,7 +62,7 @@
 }
 
 ::-webkit-scrollbar {
-  @apply appearance-none bg-transparent w-[0.6rem] rounded-full absolute border-[1px] border-primary-border border-solid;
+  @apply appearance-none hidden md:block md:bg-transparent w-[0.6rem] rounded-full absolute border-[1px] border-primary-border border-solid;
 }
 
 ::-webkit-scrollbar-thumb {

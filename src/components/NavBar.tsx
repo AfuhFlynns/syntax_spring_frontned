@@ -32,7 +32,7 @@ const NavBar = () => {
             <li className="list-none">{item.title}</li>
           </Link>
         ))}
-        <Link to="/login">
+        <Link to="/log-in">
           <CustomButton text="Login / SignUp" />
         </Link>
       </ul>
@@ -65,7 +65,7 @@ const NavBar = () => {
               </Link>
             ))}
             <div className="w-full h-[8rem] flex flex-row items-center justify-center">
-              <Link to="/login" onClick={() => setIsMobileNavBar(false)}>
+              <Link to="/log-in" onClick={() => setIsMobileNavBar(false)}>
                 <button className="button">
                   <LogInIcon />
                   <span>Login / SignUp</span>

@@ -15,7 +15,12 @@ const useAuth = () => {
       const response = await protectedAxios.get<responseDataTypes>(
         authEndPoint
       );
-      if (response.data.user) setUser(response.data.user); // Update user in the global store
+      if (response.data.user)
+        setUser(
+          response.data.user,
+          response.data.users,
+          response.data.challenges
+        ); // Update user in the global store
       setAuthState(true);
       setError(null);
     } catch (error: any | (Error | { message: string })) {
