@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CustomInput, CustomLoader1 } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, InputLabel } from "@mui/material";
-import { Celebration, GitHub, Google } from "@mui/icons-material";
+import { Celebration, GitHub, Google, Check } from "@mui/icons-material";
 import userGlobalStore from "../store/userStore";
 import { toast } from "react-toastify";
 
@@ -15,6 +15,7 @@ const SignUpPage: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+  const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,19 +27,26 @@ const SignUpPage: React.FC = () => {
 
   const handleFormSubmit = async () => {
     if (formData.password === formData.confirmPassword) {
-      await signUp(formData.password, formData.email, formData.username);
-      toast.success("Account created successfully!");
-      toast.info(`A verification email has been sent to: ${formData.email}`);
-      navigate("/verify-account");
-      setFormData({
-        username: "",
-        password: "",
-        confirmPassword: "",
-        email: "",
-      });
+      if (formData.password.length < 8) {
+        return toast.warn("Password length must be at least 8 characters");
+      } else {
+        await signUp(formData.password, formData.email, formData.username);
+        toast.success("Account created successfully!");
+        toast.info(`A verification email has been sent to: ${formData.email}`);
+        navigate("/verify-account");
+        setFormData({
+          username: "",
+          password: "",
+          confirmPassword: "",
+          email: "",
+        });
+      }
     } else {
       return toast.warn("Both passwords must match");
     }
+  };
+  const handleAcceptTermsToggle = () => {
+    setAcceptTerms(!acceptTerms);
   };
 
   const handleUnavailableServiceClick = () => {
@@ -118,7 +126,25 @@ const SignUpPage: React.FC = () => {
         </div>
         {error && <span className="text-red-600 text-regular">{error}</span>}
         <div className="flex flex-row items-center justify-center h-[3rem] md:h-[3.6rem] w-full">
-          <Button type="submit" className="submit-btn">
+          <Button
+            type="submit"
+            className={`submit-btn ${
+              formData.password === "" ||
+              formData.username === "" ||
+              formData.confirmPassword === "" ||
+              formData.email === "" ||
+              acceptTerms === false
+                ? "opacity-60"
+                : "opacity-100"
+            }`}
+            disabled={
+              formData.password === "" ||
+              formData.username === "" ||
+              formData.confirmPassword === "" ||
+              formData.email === "" ||
+              acceptTerms === false
+            }
+          >
             {loading ? (
               ""
             ) : (
@@ -164,6 +190,46 @@ const SignUpPage: React.FC = () => {
             Sign In
           </Link>
         </footer>
+        <div className="h-auto w-full flex flex-row items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={handleAcceptTermsToggle}
+            className="w-[1.3rem] h-[1.3rem] rounded-sm border-secondary-button-outline border-[1px] border-solid flex flex-row items-center justify-center"
+          >
+            {acceptTerms ? (
+              <Check
+                className="text-primary-text"
+                style={{ height: "95%", width: "95%" }}
+              />
+            ) : (
+              ""
+            )}
+          </button>
+          <InputLabel
+            htmlFor="terms"
+            className="cursor-pointer"
+            onClick={handleAcceptTermsToggle}
+          >
+            <span className="text-md text-primary-text">
+              <p>
+                Accept{" "}
+                <Link
+                  to="/terms-privacy"
+                  className="text-primary-button-blue-light"
+                >
+                  privacy policy
+                </Link>
+                and{" "}
+                <Link
+                  to="/terms-privacy"
+                  className="text-primary-button-blue-light"
+                >
+                  terms of service
+                </Link>
+              </p>
+            </span>
+          </InputLabel>
+        </div>
       </form>
     </div>
   );

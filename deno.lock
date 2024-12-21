@@ -5,6 +5,7 @@
     "npm:@emotion/styled@^11.13.0": "11.13.5_@emotion+react@11.13.5__react@18.3.1_react@18.3.1",
     "npm:@eslint/js@^9.13.0": "9.16.0",
     "npm:@fontsource/roboto@^5.1.0": "5.1.0",
+    "npm:@monaco-editor/react@^4.6.0": "4.6.0_monaco-editor@0.52.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@mui/icons-material@^6.1.1": "6.1.10_@mui+material@6.1.10__@emotion+react@11.13.5___react@18.3.1__@emotion+styled@11.13.5___@emotion+react@11.13.5____react@18.3.1___react@18.3.1__@types+react@18.3.14__react@18.3.1__react-dom@18.3.1___react@18.3.1_@types+react@18.3.14_react@18.3.1_@emotion+react@11.13.5__react@18.3.1_@emotion+styled@11.13.5__@emotion+react@11.13.5___react@18.3.1__react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@mui/material@^6.1.1": "6.1.10_@emotion+react@11.13.5__react@18.3.1_@emotion+styled@11.13.5__@emotion+react@11.13.5___react@18.3.1__react@18.3.1_@types+react@18.3.14_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@sentry/react@^8.47.0": "8.47.0_react@18.3.1",
@@ -375,6 +376,22 @@
       "dependencies": [
         "@jridgewell/resolve-uri",
         "@jridgewell/sourcemap-codec"
+      ]
+    },
+    "@monaco-editor/loader@1.4.0_monaco-editor@0.52.0": {
+      "integrity": "sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==",
+      "dependencies": [
+        "monaco-editor",
+        "state-local"
+      ]
+    },
+    "@monaco-editor/react@4.6.0_monaco-editor@0.52.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-RFkU9/i7cN2bsq/iTkurMWOEErmYcY6JiQI3Jn+WeR/FGISH8JbHERjpS9oRuSOPvDMJI0Z8nJeKkbOs9sBYQw==",
+      "dependencies": [
+        "@monaco-editor/loader",
+        "monaco-editor",
+        "react",
+        "react-dom"
       ]
     },
     "@mui/core-downloads-tracker@6.1.10": {
@@ -1782,6 +1799,9 @@
     "source-map@0.5.7": {
       "integrity": "sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ=="
     },
+    "state-local@1.0.7": {
+      "integrity": "sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w=="
+    },
     "string-width@4.2.3": {
       "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
       "dependencies": [
@@ -1990,6 +2010,7 @@
         "npm:@emotion/styled@^11.13.0",
         "npm:@eslint/js@^9.13.0",
         "npm:@fontsource/roboto@^5.1.0",
+        "npm:@monaco-editor/react@^4.6.0",
         "npm:@mui/icons-material@^6.1.1",
         "npm:@mui/material@^6.1.1",
         "npm:@sentry/react@^8.47.0",

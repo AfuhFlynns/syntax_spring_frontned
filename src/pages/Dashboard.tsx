@@ -1,62 +1,125 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from "react";
+import { styled } from "@mui/material/styles";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Typography,
+  Button,
+  Avatar,
+} from "@mui/material";
+import "tailwindcss/tailwind.css";
 import userGlobalStore from "../store/userStore";
 
+// Custom AppBar styling
+const CustomAppBar = styled(AppBar)(({ theme }) => ({
+  background: "#1A202C",
+  borderBottom: `1px solid #4A5568`,
+}));
+
 const Dashboard: React.FC = () => {
-  const { username } = useParams<{ username: string }>();
-  const navigate = useNavigate();
-  const { user } = userGlobalStore();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        setLoading(true);
-        // Here you would typically fetch the user's dashboard data
-        // For example: const dashboardData = await fetchUserDashboard(username);
-
-        // For now, we'll just check if the username matches the logged-in user
-        if (user?.username !== username) {
-          setError("You don't have permission to view this dashboard.");
-          navigate("/dashboard");
-        }
-
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load dashboard data. Please try again later.");
-        setLoading(false);
-      }
-    };
-
-    fetchDashboardData();
-  }, [username, user, navigate]);
-
-  if (loading) {
-    return <div>Loading dashboard...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  // Zustand store
+  const { user, users } = userGlobalStore();
 
   return (
-    <div>
-      <h1>Welcome to your dashboard, {username}!</h1>
-      {/* Add your dashboard content here */}
-      <div>
-        <h2>Your Progress</h2>
-        {/* Add progress information */}
-      </div>
-      <div>
-        <h2>Recent Challenges</h2>
-        {/* Add recent challenges */}
-      </div>
-      <div>
-        <h2>Leaderboard Position</h2>
-        {/* Add leaderboard information */}
-      </div>
-    </div>
+    <Box className="min-h-screen bg-gray-900 text-white">
+      {/* Navbar */}
+      <CustomAppBar position="static">
+        <Toolbar className="flex justify-between">
+          <Typography
+            variant="h6"
+            className="font-bold text-lg text-gradient"
+            style={{
+              background: "var(--primary-gradient)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            SyntaxSpring
+          </Typography>
+          <Box className="flex items-center gap-4">
+            <Avatar
+              alt={user?.username}
+              src={`/api/user-avatar/${user?.avatar}`}
+            />
+            <Typography variant="subtitle1" className="text-gray-300">
+              {user?.username}
+            </Typography>
+          </Box>
+        </Toolbar>
+      </CustomAppBar>
+
+      {/* Content */}
+      <Box className="p-6">
+        {/* Welcome Banner */}
+        <Box className="bg-gray-800 text-white p-6 rounded-lg shadow-md mb-6">
+          <Typography
+            variant="h5"
+            className="font-semibold mb-2 text-blue-light"
+          >
+            Welcome back, {user?.username}!
+          </Typography>
+          <Typography className="text-gray-300">
+            Explore challenges, labs, and coding adventures to upskill yourself
+            today.
+          </Typography>
+        </Box>
+
+        {/* Cards Section */}
+        <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Coding Challenges */}
+          <Box className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700">
+            <Typography variant="h6" className="text-white font-semibold mb-2">
+              Coding Challenges
+            </Typography>
+            <Typography className="text-gray-400 mb-4">
+              Solve interactive coding challenges to improve your skills.
+            </Typography>
+            <Button
+              variant="contained"
+              style={{ background: "var(--button-gradient)", color: "#fff" }}
+              fullWidth
+            >
+              Start Now
+            </Button>
+          </Box>
+
+          {/* Labs */}
+          <Box className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700">
+            <Typography variant="h6" className="text-white font-semibold mb-2">
+              Coding Labs
+            </Typography>
+            <Typography className="text-gray-400 mb-4">
+              Practice in a real-world coding environment.
+            </Typography>
+            <Button
+              variant="contained"
+              style={{ background: "var(--button-gradient)", color: "#fff" }}
+              fullWidth
+            >
+              Explore Labs
+            </Button>
+          </Box>
+
+          {/* AI Problem Solver */}
+          <Box className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700">
+            <Typography variant="h6" className="text-white font-semibold mb-2">
+              AI Problem Solver
+            </Typography>
+            <Typography className="text-gray-400 mb-4">
+              Get help from AI to solve coding problems instantly.
+            </Typography>
+            <Button
+              variant="contained"
+              style={{ background: "var(--button-gradient)", color: "#fff" }}
+              fullWidth
+            >
+              Ask AI
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

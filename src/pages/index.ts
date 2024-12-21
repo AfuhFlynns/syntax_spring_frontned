@@ -9,6 +9,8 @@ import SignUpPage from "./SignUp";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import VerificationPage from "./VerificationPage";
+import LegalPages from "./PrivacyPolycy";
+import SyntaxSpringEditor from "./CodeLab";
 
 export {
   HomePage,
@@ -22,4 +24,6 @@ export {
   ForgotPassword,
   ResetPassword,
   VerificationPage,
+  LegalPages,
+  SyntaxSpringEditor,
 };

@@ -1,13 +1,13 @@
 import { ReactNode, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-// Custom imports
 import userGlobalStore from "./store/userStore";
 import LoadingOverlay from "./components/LoadingOverlay";
 import { useAuth } from "./Hooks";
 import {
   AboutUs,
   ChallengesPage,
+  SyntaxSpringEditor,
   Dashboard,
   ErrorPage,
   ForgotPassword,
@@ -21,8 +21,7 @@ import {
 
 function App() {
   const { isCheckingAuth, error, checkAuth } = useAuth();
-  const { user, sendCheckAuth, isAuthenticated, users, challenges } =
-    userGlobalStore();
+  const { user, sendCheckAuth, isAuthenticated } = userGlobalStore();
   const location = useLocation();
 
   useEffect(() => {
@@ -34,7 +33,6 @@ function App() {
   useEffect(() => {
     if (error) {
       console.error("Authentication error:", error);
-      // You can add a toast notification here if needed
     }
   }, [error]);
 
@@ -60,84 +58,97 @@ function App() {
     );
   }
 
-  console.log(user, users, challenges);
-
   return (
     <main className="w-screen h-screen overflow-x-hidden bg-primary-bg">
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        hideProgressBar={true}
-        pauseOnHover={true}
+        hideProgressBar
+        pauseOnHover
         theme="dark"
       />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/terms-privacy" element={<AboutUs />} />
 
         <Route
+          path="/log-in"
           element={
             <PublicOnlyRoute>
               <LogInPage />
             </PublicOnlyRoute>
           }
-          path="/log-in"
         />
         <Route
+          path="/sign-up"
           element={
             <PublicOnlyRoute>
               <SignUpPage />
             </PublicOnlyRoute>
           }
-          path="/sign-up"
         />
         <Route
+          path="/forgot-password"
           element={
             <PublicOnlyRoute>
               <ForgotPassword />
             </PublicOnlyRoute>
           }
-          path="/forgot-password"
         />
         <Route
+          path="/reset-password/:token"
           element={
             <PublicOnlyRoute>
               <ResetPassword />
             </PublicOnlyRoute>
           }
-          path="/reset-password/:token"
         />
         <Route
+          path="/verify-account"
           element={
             <PublicOnlyRoute>
               <VerificationPage />
             </PublicOnlyRoute>
           }
-          path="/verify-account"
         />
 
+        {/* Protected Routes */}
         <Route
+          path="/challenges"
           element={
             <ProtectedRoute>
               <ChallengesPage />
             </ProtectedRoute>
           }
-          path="/challenges"
         />
         <Route
+          path="/playground/:challengeId"
+          element={
+            <ProtectedRoute>
+              <SyntaxSpringEditor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leaderboard"
           element={
             <ProtectedRoute>
               <Leaderboard />
             </ProtectedRoute>
           }
-          path="/leaderboard"
         />
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Navigate to={`/dashboard/user/${user?.username}`} replace />
+              {user?.username ? (
+                <Navigate to={`/dashboard/user/${user.username}`} replace />
+              ) : (
+                <ErrorPage />
+              )}
             </ProtectedRoute>
           }
         />
@@ -150,8 +161,10 @@ function App() {
           }
         />
 
+        {/* Catch-All */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      ;
     </main>
   );
 }
